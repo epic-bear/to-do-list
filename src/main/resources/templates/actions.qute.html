@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ToDoList</title>
+    <style>
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .popup-content {
+            background-color: white;
+            margin: 20% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        /* Button style */
+        .popup-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>{username}</h1>
+<button onclick="openPopup('addActionPopup')" class="popup-button">Add Action</button>
+<input type="hidden" id="username" value="{username}">
+<table>
+    <thead>
+    <tr>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Created Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    #for(action in actions)
+    <tr>
+        <td>{{action.description}}</td>
+        <td>{{action.status}}</td>
+        <td>{{action.createdDate}}</td>
+    </tr>
+    #end
+    </tbody>
+</table>
+
+<!-- Add Action Popup -->
+<div id="addActionPopup" class="popup">
+    <div class="popup-content">
+        <h2>Add Action</h2>
+        <input type="text" id="actionDescription" placeholder="Enter Description" required>
+        <button onclick="addAction()" class="popup-button">Add</button>
+        <button onclick="closePopup('addActionPopup')" class="popup-button">Cancel</button>
+    </div>
+</div>
+
+<script>
+    // Function to open a popup by ID
+    function openPopup(popupId) {
+        document.getElementById(popupId).style.display = "block";
+    }
+
+    // Function to close a popup by ID
+    function closePopup(popupId) {
+        document.getElementById(popupId).style.display = "none";
+    }
+
+    function addAction() {
+        const actionDescription = document.getElementById("actionDescription").value;
+        if (!actionDescription) {
+            alert("Please enter a description.");
+            return;
+        }
+
+        const username = document.getElementById("username").value;
+
+        // Send a POST request to create the action
+        fetch("/actions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                description: actionDescription,
+                status: "New",
+            }),
+        })
+            .then(response => {
+                if (response.status === 201) {
+                    alert("Action added successfully!");
+                    closePopup("addActionPopup");
+                    // Redirect to the getActionsPage with the username query parameter
+                    window.location.href = `/actions?username=${username}`;
+                } else {
+                    alert("Action creation failed.");
+                }
+            });
+    }
+
+    function getUsernameFromURL() {
+        // Get the current URL
+        const currentURL = window.location.href;
+
+        // Create a URLSearchParams object from the URL
+        const searchParams = new URLSearchParams(currentURL);
+
+        // Get the value of the "username" parameter
+        return searchParams.get("username");
+    }
+</script>
+</body>
+</html>
