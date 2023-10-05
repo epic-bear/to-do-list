@@ -37,17 +37,17 @@
 <table>
     <thead>
     <tr>
+        <td>Created Date</td>
         <td>Description</td>
         <td>Status</td>
-        <td>Created Date</td>
     </tr>
     </thead>
     <tbody>
     {#for action in actions}
     <tr>
+        <th>{action.createdDate}</th>
         <th>{action.description}</th>
         <th>{action.status}</th>
-        <th>{action.createdDate}</th>
     </tr>
     {/for}
     </tbody>

@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class ActionDTO {
 
@@ -18,7 +16,7 @@ public class ActionDTO {
     @NotBlank
     private String username;
 
-    private LocalDateTime createdDate;
+    private String createdDate;
 
     private Status status = Status.NEW;
 }

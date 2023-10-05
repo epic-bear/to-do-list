@@ -19,6 +19,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,7 @@ public class ActionController {
         ActionDTO actionDTO = new ActionDTO();
         actionDTO.setDescription(action.getDescription());
         actionDTO.setStatus(action.getStatus());
-        actionDTO.setCreatedDate(action.getCreatedDate());
+        actionDTO.setCreatedDate(action.getCreatedDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         actionDTO.setUsername(action.getUser().getUsername());
         return actionDTO;
     }
