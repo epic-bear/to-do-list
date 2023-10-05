@@ -37,19 +37,19 @@
 <table>
     <thead>
     <tr>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Created Date</th>
+        <td>Description</td>
+        <td>Status</td>
+        <td>Created Date</td>
     </tr>
     </thead>
     <tbody>
-    #for(action in actions)
+    {#for action in actions}
     <tr>
-        <td>{{action.description}}</td>
-        <td>{{action.status}}</td>
-        <td>{{action.createdDate}}</td>
+        <th>{action.description}</th>
+        <th>{action.status}</th>
+        <th>{action.createdDate}</th>
     </tr>
-    #end
+    {/for}
     </tbody>
 </table>
 
@@ -83,23 +83,27 @@
 
         const username = document.getElementById("username").value;
 
+        // Create an ActionDTO object
+        const actionData = {
+            description: actionDescription,
+            username: username
+        };
+
         // Send a POST request to create the action
         fetch("/actions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                description: actionDescription,
-                status: "New",
-            }),
+            body: JSON.stringify(actionData), // Send the ActionDTO as JSON
         })
             .then(response => {
                 if (response.status === 201) {
                     alert("Action added successfully!");
                     closePopup("addActionPopup");
                     // Redirect to the getActionsPage with the username query parameter
-                    window.location.href = `/actions?username=${username}`;
+                    window.location.href = `/actions?username=` + username;
+                    // Use actionData.username instead of username
                 } else {
                     alert("Action creation failed.");
                 }

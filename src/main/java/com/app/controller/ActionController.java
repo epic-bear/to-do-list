@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import com.app.domain.Action;
+import com.app.dto.ActionDTO;
 import com.app.service.ActionService;
 import com.app.service.UserService;
 import io.quarkus.qute.Template;
@@ -19,6 +20,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/actions")
 @Produces(MediaType.TEXT_HTML)
@@ -36,13 +38,25 @@ public class ActionController {
     @GET
     public String getActionsPage(@QueryParam("username") String username) {
         List<Action> userActions = userService.getUserActions(username);
-        return actions.data("actions", userActions).data("username", username).render();
+        List<ActionDTO> actionDTOs = userActions.stream()
+                .map(this::mapActionToDTO)
+                .toList();
+        return actions.data("actions", actionDTOs).data("username", username).render();
+    }
+
+    private ActionDTO mapActionToDTO(Action action) {
+        ActionDTO actionDTO = new ActionDTO();
+        actionDTO.setDescription(action.getDescription());
+        actionDTO.setStatus(action.getStatus());
+        actionDTO.setCreatedDate(action.getCreatedDate());
+        actionDTO.setUsername(action.getUser().getUsername());
+        return actionDTO;
     }
 
     @POST
     @Transactional
-    public Response createAction( @QueryParam("username") String username, @QueryParam("description") String description) {
-        actionService.createAction(username, description);
+    public Response createAction(@Valid ActionDTO actionDTO) {
+        actionService.createAction(actionDTO);
         return Response.status(Response.Status.CREATED).build();
     }
 

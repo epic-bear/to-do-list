@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,5 +30,6 @@ public class Action extends PanacheEntity {
     private LocalDateTime createdDate;
 
     @ManyToOne
+    @NotNull
     private User user;
 }
