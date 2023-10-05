@@ -21,7 +21,6 @@ import jakarta.ws.rs.core.Response;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("/actions")
 @Produces(MediaType.TEXT_HTML)
@@ -47,6 +46,7 @@ public class ActionController {
 
     private ActionDTO mapActionToDTO(Action action) {
         ActionDTO actionDTO = new ActionDTO();
+        actionDTO.setActionId(action.id);
         actionDTO.setDescription(action.getDescription());
         actionDTO.setStatus(action.getStatus());
         actionDTO.setCreatedDate(action.getCreatedDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
@@ -64,8 +64,8 @@ public class ActionController {
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response updateAction(@PathParam("id") Long id, @Valid Action updatedAction) {
-        Action updated = actionService.updateAction(id, updatedAction);
+    public Response updateAction(@PathParam("id") Long id, @Valid ActionDTO actionDTO) {
+        Action updated = actionService.updateAction(id, actionDTO);
         if (updated == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

@@ -10,7 +10,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @ApplicationScoped
 public class ActionService {
@@ -21,18 +20,14 @@ public class ActionService {
     @Inject
     UserService userService;
 
-    public List<Action> listAll() {
-        return actionRepository.listAll();
-    }
-
     @Transactional
-    public Action updateAction(Long id, Action updatedAction) {
+    public Action updateAction(Long id, ActionDTO actionDTO) {
         Action existingAction = actionRepository.findById(id);
         if (existingAction == null) {
             return null;
         }
-        existingAction.setDescription(updatedAction.getDescription());
-        existingAction.setStatus(updatedAction.getStatus());
+        existingAction.setDescription(actionDTO.getDescription());
+        existingAction.setStatus(actionDTO.getStatus());
         actionRepository.persist(existingAction);
         return existingAction;
     }

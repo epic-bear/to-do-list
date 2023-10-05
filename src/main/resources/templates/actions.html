@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ToDoList</title>
+    <style>
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .popup-content {
+            background-color: white;
+            margin: 20% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+
+        .popup-button {
+            margin-top: 10px;
+        }
+    </style>
+    <script src="/js/actions.js">
+        {actions.raw}
+    </script>
+</head>
+<body>
+<h1>{username}</h1>
+<button onclick="openPopup('addActionPopup')" class="popup-button">Add Action</button>
+<input type="hidden" id="username" value="{username}">
+<table>
+    <thead>
+    <tr>
+        <td>Created Date</td>
+        <td>Description</td>
+        <td>Status</td>
+    </tr>
+    </thead>
+    <tbody>
+    {#for action in actions}
+        <tr onclick="openEditPopup('{action.actionId}', '{action.description}', '{action.status}')">
+        <td>{action.createdDate}</td>
+        <td>{action.description}</td>
+        <td>{action.status}</td>
+        </tr>
+    {/for}
+    </tbody>
+</table>
+
+<div id="addActionPopup" class="popup">
+    <div class="popup-content">
+        <h2>Add Action</h2>
+        <input type="text" id="actionDescription" placeholder="Enter Description" required>
+        <button onclick="addAction()" class="popup-button">Add</button>
+        <button onclick="closePopup('addActionPopup')" class="popup-button">Cancel</button>
+    </div>
+</div>
+
+<div id="editActionPopup" class="popup">
+    <div class="popup-content">
+        <h2>Edit Action</h2>
+        <input type="hidden" id="editActionId">
+        <input type="text" id="editActionDescription" placeholder="Enter Description" required>
+        <label for="editActionStatus">Status:</label>
+        <select id="editActionStatus">
+            <option value="InProgress">InProgress</option>
+            <option value="Done">Done</option>
+        </select>
+        <button onclick="updateAction()" class="popup-button">Update</button>
+        <button onclick="closePopup('editActionPopup')" class="popup-button">Cancel</button>
+    </div>
+</div>
+</body>
+</html>
