@@ -27,7 +27,7 @@ public class ActionService {
             return null;
         }
         existingAction.setDescription(actionDTO.getDescription());
-        existingAction.setStatus(actionDTO.getStatus());
+        existingAction.setStatus(Status.valueOf(actionDTO.getStatus()));
         actionRepository.persist(existingAction);
         return existingAction;
     }

@@ -9,6 +9,7 @@ import io.smallrye.common.annotation.Blocking;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -18,6 +19,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -48,7 +50,7 @@ public class ActionController {
         ActionDTO actionDTO = new ActionDTO();
         actionDTO.setActionId(action.id);
         actionDTO.setDescription(action.getDescription());
-        actionDTO.setStatus(action.getStatus());
+        actionDTO.setStatus(action.getStatus().toString());
         actionDTO.setCreatedDate(action.getCreatedDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         actionDTO.setUsername(action.getUser().getUsername());
         return actionDTO;
@@ -61,14 +63,14 @@ public class ActionController {
         return Response.status(Response.Status.CREATED).build();
     }
 
-    @PUT
     @Path("/{id}")
+    @PUT
     @Transactional
     public Response updateAction(@PathParam("id") Long id, @Valid ActionDTO actionDTO) {
         Action updated = actionService.updateAction(id, actionDTO);
         if (updated == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(updated).build();
+        return Response.status(Status.OK).build();
     }
 }

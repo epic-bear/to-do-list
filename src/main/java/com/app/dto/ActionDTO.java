@@ -15,10 +15,9 @@ public class ActionDTO {
     @Size(max = 30, message = "Description cannot be longer than 30 characters")
     private String description;
 
-    @NotBlank
     private String username;
 
     private String createdDate;
 
-    private Status status = Status.NEW;
+    private String status;
 }

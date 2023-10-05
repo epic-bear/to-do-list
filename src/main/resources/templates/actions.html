@@ -28,13 +28,17 @@
             margin-top: 10px;
         }
     </style>
-    <script src="/js/actions.js">
-        {actions.raw}
+    <script src="/js/actions.js"></script>
+    <script>
+        function signOut() {
+            window.location.href = "http://localhost:8080";
+        }
     </script>
 </head>
 <body>
 <h1>{username}</h1>
 <button onclick="openPopup('addActionPopup')" class="popup-button">Add Action</button>
+<button onclick="signOut()" class="popup-button">Sign Out</button>
 <input type="hidden" id="username" value="{username}">
 <table>
     <thead>
@@ -71,8 +75,9 @@
         <input type="text" id="editActionDescription" placeholder="Enter Description" required>
         <label for="editActionStatus">Status:</label>
         <select id="editActionStatus">
-            <option value="InProgress">InProgress</option>
-            <option value="Done">Done</option>
+            <option value="NEW">NEW</option>
+            <option value="INPROGRESS">INPROGRESS</option>
+            <option value="DONE">DONE</option>
         </select>
         <button onclick="updateAction()" class="popup-button">Update</button>
         <button onclick="closePopup('editActionPopup')" class="popup-button">Cancel</button>

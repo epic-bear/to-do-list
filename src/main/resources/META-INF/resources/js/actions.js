@@ -31,7 +31,6 @@ function addAction() {
     })
         .then(response => {
             if (response.status === 201) {
-                alert("Action added successfully!");
                 closePopup("addActionPopup");
                 window.location.href = `/actions?username=` + username;
             } else {
@@ -60,7 +59,7 @@ function updateAction() {
 
     const actionData = {
         description: actionDescription,
-        status: actionStatus,
+        status: actionStatus
     };
 
     fetch(`/actions/${actionId}`, {
@@ -72,7 +71,6 @@ function updateAction() {
     })
         .then(response => {
             if (response.status === 200) {
-                alert("Action updated successfully!");
                 closePopup("editActionPopup");
                 window.location.reload();
             } else {

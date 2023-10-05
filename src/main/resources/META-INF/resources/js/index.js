@@ -19,8 +19,6 @@ function createUser() {
     })
         .then(response => {
             if (response.status === 200) {
-                alert("User created successfully!");
-                // Redirect to the actions page
                 window.location.href = '/actions?username=' + createUsername;
             } else {
                 alert("User creation failed.");
@@ -37,8 +35,6 @@ function signIn() {
     fetch(`/user/${signInUsername}`)
         .then(response => {
             if (response.status === 200) {
-                alert("Sign In Successful!");
-                // Redirect to the actions page
                 window.location.href = '/actions?username=' + signInUsername;
             } else {
                 alert("Sign In failed. User not found.");
