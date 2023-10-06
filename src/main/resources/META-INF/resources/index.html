@@ -3,49 +3,74 @@
 <head>
     <title>User Page</title>
     <style>
-        /* Popup styles */
+        html, body {
+            font-family: "Comic Sans MS";
+            background-color: mediumpurple;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .popup {
             display: none;
+            align-items: center;
             position: fixed;
-            top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(38, 37, 37, 0.7);
             z-index: 1;
         }
 
         .popup-content {
-            background-color: white;
-            margin: 20% auto;
+            background-color: mediumpurple;
+            backdrop-filter: blur(10px);
+            margin-left: 40%;
+            margin-top: 20%;
             padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
+            border: none;
+            width: 20%;
             text-align: center;
+            border-radius: 10px;
+            color: white;
         }
 
-        /* Button style */
         .popup-button {
-            margin-top: 10px;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            font-family: "Comic Sans MS";
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .popup-button + .popup-button {
+            margin-left: 20px;
         }
     </style>
 </head>
 <body>
-<h1>User Page</h1>
-
-<!-- Create User button -->
-<button onclick="openPopup('createUserPopup')" class="popup-button">Create User</button>
-
-<!-- Sign In button -->
+<button onclick="openPopup('createUserPopup')" class="popup-button">Add User</button>
 <button onclick="openPopup('signInPopup')" class="popup-button">Sign In</button>
 
-<!-- Create User Popup -->
 <div id="createUserPopup" class="popup">
     <div class="popup-content">
         <h2>Create User</h2>
         <input type="text" id="createUsername" placeholder="Enter Username" required>
-        <button onclick="createUser()" class="popup-button">Create</button>
-        <button onclick="closePopup('createUserPopup')" class="popup-button">Cancel</button>
+        <div class="popup-buttons">
+            <button onclick="createUser()" class="popup-button">Create</button>
+            <button onclick="closePopup('createUserPopup')" class="popup-button">Cancel</button>
+        </div>
     </div>
 </div>
 
@@ -54,12 +79,13 @@
     <div class="popup-content">
         <h2>Sign In</h2>
         <input type="text" id="signInUsername" placeholder="Enter Username" required>
-        <button onclick="signIn()" class="popup-button">Sign In</button>
-        <button onclick="closePopup('signInPopup')" class="popup-button">Cancel</button>
+        <div class="popup-buttons">
+            <button onclick="signIn()" class="popup-button">Sign In</button>
+            <button onclick="closePopup('signInPopup')" class="popup-button">Cancel</button>
+        </div>
     </div>
 </div>
 
-<script src="/js/index.js">
-</script>
+<script src="/js/index.js"></script>
 </body>
 </html>

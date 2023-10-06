@@ -1,0 +1,113 @@
+html, body {
+    font-family: "Comic Sans MS";
+    background-color: mediumpurple;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+table {
+    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 20px;
+    width: 100%;
+}
+
+td.description-column {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 30ch;
+}
+
+.popup {
+    display: none;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(38, 37, 37, 0.7);
+    z-index: 1;
+}
+
+.popup-content {
+    background-color: mediumpurple;
+    backdrop-filter: blur(10px);
+    margin-left: 40%;
+    margin-top: 20%;
+    padding: 20px;
+    border: none;
+    width: 20%;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+}
+
+/* Button style */
+.popup-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px); /* Apply a blur effect */
+    font-family: "Comic Sans MS";
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+
+.popup-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.popup-button + .popup-button {
+    margin-left: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-NEW {
+    background-color: #66c1fa;
+    position: fixed;
+    border-radius: 30px;
+    color: mediumpurple;
+    padding: 5px;
+}
+
+.status-INPROGRESS {
+    background-color: #f3f393;
+    position: fixed;
+    border-radius: 30px;
+    color: mediumpurple;
+    padding: 5px;
+}
+
+.status-DONE {
+    background-color: #99f699;
+    position: fixed;
+    border-radius: 30px;
+    color: mediumpurple;
+    padding: 5px;
+}
